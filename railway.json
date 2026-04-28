@@ -4,6 +4,6 @@
         "builder": "nixpacks"
     },
     "deploy": {
-        "startCommand": "php -S 0.0.0.0:8080 -t public"
+        "startCommand": "php artisan migrate --force && php -S 0.0.0.0:8080 -t public"
     }
 }
