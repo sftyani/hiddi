@@ -11,17 +11,12 @@ return new class extends Migration
      */
 public function up(): void
 {
-    Schema::table('bookings', function (Blueprint $table) {
-        // 1. Mengubah user_id menjadi nullable agar bisa booking tanpa login
-        $table->foreignId('user_id')->nullable()->change();
+Schema::table('bookings', function (Blueprint $table) {
+    $table->foreignId('user_id')->nullable()->change();
 
-        // 2. Menambahkan kolom detail pengantin & domisili
-        // Kita letakkan setelah package_id agar struktur tabel tetap rapi
-        $table->string('customer_name')->after('package_id')->comment('Nama Lengkap Pengantin');
-        $table->string('customer_phone')->after('customer_name')->comment('Nomor WhatsApp');
-        $table->string('customer_email')->after('customer_phone')->comment('Email Invoice/Kontrak');
-        $table->text('customer_address')->after('customer_email')->comment('Alamat/Domisili');
-    });
+    // HANYA TAMBAH YANG BELUM ADA
+    $table->text('customer_address')->after('customer_email')->comment('Alamat/Domisili');
+});
 }
 
 public function down(): void
