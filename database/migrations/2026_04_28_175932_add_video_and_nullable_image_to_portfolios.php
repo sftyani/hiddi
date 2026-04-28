@@ -8,16 +8,21 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('portfolios', function (Blueprint $table) {
-            // bikin image_path jadi nullable
-            $table->string('image_path')->nullable()->change();
+Schema::table('portfolios', function (Blueprint $table) {
 
-            // tambah video_path
-            $table->string('video_path')->nullable()->after('image_path');
+    // ubah image_path jadi nullable (ini aman)
+    $table->string('image_path')->nullable()->change();
 
-            // tambah type (biar tau ini foto / video)
-            $table->enum('type', ['image','video'])->default('image')->after('video_path');
-        });
+    // TAMBAH CUMA KALO BELUM ADA
+    if (!Schema::hasColumn('portfolios', 'video_path')) {
+        $table->string('video_path')->nullable()->after('image_path');
+    }
+
+    if (!Schema::hasColumn('portfolios', 'type')) {
+        $table->enum('type', ['image','video'])->default('image')->after('video_path');
+    }
+
+});
     }
 
     public function down()
