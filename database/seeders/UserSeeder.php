@@ -14,10 +14,11 @@ class UserSeeder extends Seeder
      */
 public function run()
 {
-    User::create([
-        'name' => 'Owner',
-        'email' => 'owner@gmail.com',
-        'password' => Hash::make('12345678'),
-    ]);
+User::create([
+    'name' => 'Owner',
+    'email' => 'owner@gmail.com',
+    'password' => Hash::make('12345678'),
+    'role' => 'owner',
+]);
 }
 }
