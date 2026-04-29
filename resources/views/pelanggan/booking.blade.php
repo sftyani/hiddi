@@ -86,8 +86,8 @@
                     <div class="step-form active" id="step-1">
                         <div class="row g-4">
                             <div class="col-12">
-                                <label class="form-label fw-semibold">Nama Lengkap</label>
-                                <input type="text" name="customer_name" class="form-control" placeholder="Nama sesuai KTP" 
+                                <label class="form-label fw-semibold">Nama Calon Pengantin</label>
+                                <input type="text" name="customer_name" class="form-control" placeholder="Nama calon pengantin" 
                                        value="{{ old('customer_name') }}" required>
                             </div>
                             <div class="col-md-6">

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Pelanggan;
 
 use App\Http\Controllers\Controller;
-use App\Models\Package;
 use App\Models\Booking;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Models\Category;
+use App\Models\Package;
 use App\Models\Transaction;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
@@ -19,7 +21,15 @@ class BookingController extends Controller
         }
 
         $package = Package::with('includes')->findOrFail($request->package_id);
-        $additionals = Package::where('category_id', 7)->get();
+        $categoryAdditional = Category::whereRaw('LOWER(TRIM(name)) IN (?, ?)', ['addition', 'additional'])->first();
+
+        $additionals = collect(); // Default kosong
+        
+        if ($categoryAdditional) {
+            $additionals = Package::where('category_id', $categoryAdditional->id)->get();
+        } else {
+            Log::warning('Kategori "Additional" tidak ditemukan di database. Cek tabel categories.');
+        }
 
         $weddingDates = Booking::whereNotIn('status', ['cancelled','rejected'])
             ->whereNotNull('booking_date')
@@ -68,7 +78,7 @@ class BookingController extends Controller
         if (in_array('prewedding', $inc)) {
             $rules['prewedding_date'] = 'required|date';
             if ($request->filled('wedding_date')) {
-                $rules['prewedding_date'] .= '|before:wedding_date';
+                $rules['prewedding_date'] .= '|before_or_equal:wedding_date';
             }
             $rules['prewedding_category'] = 'required|in:indoor,outdoor';
             $rules['prewedding_time'] = 'nullable|date_format:H:i';
@@ -99,6 +109,7 @@ class BookingController extends Controller
             'wedding_date.after'        => 'Tanggal wedding harus setelah hari ini.',
             'wedding_location.required' => 'Lokasi venue wajib diisi.',
             'prewedding_date.required'  => 'Tanggal prewedding wajib dipilih.',
+            'prewedding_date.before_or_equal' => 'Tanggal prewedding tidak boleh setelah tanggal wedding.',
             'prewedding_category.required' => 'Kategori sesi prewedding wajib dipilih.',
         ];
 
