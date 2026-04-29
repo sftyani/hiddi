@@ -7,6 +7,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Pelanggan\HomeController;
 use App\Http\Controllers\Pelanggan\BookingController;
 
+Route::get('/phpinfo', fn() => dd(
+    ini_get('post_max_size'),
+    ini_get('upload_max_filesize')
+));
+
 /*
 |--------------------------------------------------------------------------
 | AUTH ROUTES
