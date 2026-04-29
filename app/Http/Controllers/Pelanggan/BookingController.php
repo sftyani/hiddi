@@ -95,7 +95,6 @@ class BookingController extends Controller
             $rules['engagement_date'] = 'required|date|after:today';
         }
 
-        // 🔥 FIX: Pass custom messages ke validate()
         $messages = [
             'customer_name.required'    => 'Nama lengkap wajib diisi.',
             'customer_phone.required'   => 'Nomor WhatsApp wajib diisi.',
@@ -113,7 +112,7 @@ class BookingController extends Controller
             'prewedding_category.required' => 'Kategori sesi prewedding wajib dipilih.',
         ];
 
-        $validated = $request->validate($rules, $messages); // 🔥 Penting!
+        $validated = $request->validate($rules, $messages);
 
         // ================= TANGGAL UTAMA =================
         $mainDate = $request->wedding_date 
@@ -150,20 +149,25 @@ class BookingController extends Controller
             'prewedding_date'     => $request->prewedding_date,
             'prewedding_category' => $request->prewedding_category,
             'prewedding_time'     => $request->prewedding_time,
-            'prewedding_end_time' => $request->prewedding_end_time,
+            'prewedding_end_time' => $request->prewedding_end_time, // Pastikan kolom ini sudah ada di DB
             'prewedding_location' => $request->prewedding_location,
 
             // wedding
             'wedding_time'     => $request->wedding_time,
-            'wedding_end_time' => $request->wedding_end_time,
+            'wedding_end_time' => $request->wedding_end_time, // Pastikan kolom ini sudah ada di DB
             'wedding_location' => $request->wedding_location,
+
+            // engagement
+            'engagement_date'  => $request->engagement_date, // Pastikan kolom ini sudah ada di DB
 
             // biaya
             'transport_fee'  => $transport,
             'additional_fee' => $additional,
 
             // pembayaran
-            'payment_type' => $request->payment_type,
+            'payment_type'   => $request->payment_type,
+            'payment_method' => $request->payment_method, // Pastikan kolom ini sudah ada di DB
+            
             'total_price'  => $totalPrice,
             'amount_paid'  => $amountPaid,
             'remaining'    => $remaining,

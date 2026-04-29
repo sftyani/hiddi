@@ -16,31 +16,42 @@ class Booking extends Model
 protected $fillable = [
     'user_id', 
     'package_id', 
-    'customer_name',    // Tambahkan ini
-    'customer_phone',   // Tambahkan ini
-    'customer_email',   // Tambahkan ini
-    'customer_address', // Tambahkan ini
+    'customer_name',
+    'customer_phone',
+    'customer_email',
+    'customer_address',
     'booking_date', 
-    'start_time', 
-    'end_time', 
-    'payment_type', 
+    
+    // Wedding
+    'wedding_time',
+    'wedding_end_time', // ✅ Baru
+    'wedding_location',
+    
+    // Prewedding
+    'prewedding_date',
+    'prewedding_time',
+    'prewedding_end_time', // ✅ Baru
+    'prewedding_category',
+    'prewedding_location',
+    
+    // Engagement
+    'engagement_date', // ✅ Baru
+
+    // Biaya
+    'transport_fee',
+    'additional_fee',
+    
+    // Pembayaran
+    'payment_type',   // Sekarang string, bukan enum ketat
+    'payment_method', // ✅ Baru
     'total_price', 
     'amount_paid', 
     'remaining', 
+    
     'status', 
     'expired_at', 
     'notes',
-    'prewedding_date',
-    'prewedding_location',
-    'prewedding_category',
-    'prewedding_time',
-    'wedding_location',
-    'wedding_time',
-    'transport_fee',
-    'additional_fee',
-    'payment_method'
 ];
-
     /**
      * Casting
      */
