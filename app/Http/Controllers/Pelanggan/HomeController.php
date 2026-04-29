@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Pelaggan;
+namespace App\Http\Controllers\Pelanggan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Package;

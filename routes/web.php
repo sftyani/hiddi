@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 // Import Controller Pelanggan
-use App\Http\Controllers\Pelaggan\HomeController;
-use App\Http\Controllers\Pelaggan\BookingController;
+use App\Http\Controllers\Pelanggan\HomeController;
+use App\Http\Controllers\Pelanggan\BookingController;
 
 /*
 |--------------------------------------------------------------------------

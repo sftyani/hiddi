@@ -37,9 +37,8 @@ protected $fillable = [
     'wedding_location',
     'wedding_time',
     'transport_fee',
-'additional_fee',
-'payment_type',
-'payment_method'
+    'additional_fee',
+    'payment_method'
 ];
 
     /**
